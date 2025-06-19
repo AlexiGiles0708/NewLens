@@ -1,0 +1,132 @@
+:root {
+  /* Colores principales */
+  --primary-cream: #ebd88c;          /* Fondo principal amarillo/crema */
+   --background-beige: #F2E8C6;       /* Fondo general beige */
+  
+  
+  --text-primary: #1A1A1A;           /* Negro principal para títulos */
+  --text-secondary: #333333;         /* Gris oscuro para texto secundario */
+  --text-muted: #666666;             /* Gris medio para texto descriptivo */
+  
+  /* Colores de acento */
+  --accent-dark: #2C2C2C;            /* Negro para elementos de contraste */
+  --accent-orange: #FF8C42;          /* Naranja para elementos destacados */
+  --accent-blue: #4A90E2;            /* Azul para enlaces o botones */
+  
+  /* Colores de fondo para tarjetas */
+  --card-background: #FFFFFF;        /* Blanco para tarjetas */
+  --card-shadow: rgba(0, 0, 0, 0.1); /* Sombra suave para tarjetas */
+  
+
+}
+
+body{
+    background: var(--background-beige);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    border-radius: 50px;
+    background: var(--primary-cream);
+    width: 70%;
+    height: 400px;
+    display: flex;                /* Activa Flexbox */
+    flex-direction: column;       /* Apila los hijos en columna */
+    justify-content: center;      /* Centra verticalmente */
+    align-items: center;
+    box-shadow: 0 8px 32px 0 rgba(44, 44, 44, 0.35), 0 1.5px 4px 0 rgba(255, 140, 66, 0.25);    
+}
+
+.container:hover{
+    box-shadow: 0 16px 48px 0 rgba(44, 44, 44, 0.45), 0 3px 12px 0 rgba(255, 140, 66, 0.35);
+    transform: translateY(-10px);
+}
+
+.container h1{
+    align-items: center;
+    font-size: 6rem;
+    font-weight: bold;
+}
+
+.formulario{
+    background: var(--primary-cream);
+    width: 60%;
+}
+
+.formulario input{
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--card-background);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+/* Estilo de las tarjetas */
+
+.container_informacion {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: var(--primary-cream);
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-shadow: 0 8px 32px 0 rgba(44, 44, 44, 0.35), 0 1.5px 4px 0 rgba(255, 140, 66, 0.25);
+}
+.container_informacion:hover{
+    box-shadow: 0 16px 48px 0 rgba(44, 44, 44, 0.45), 0 3px 12px 0 rgba(255, 140, 66, 0.35);
+    transform: translateY(-10px);
+}
+
+.titulo_informacion {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    width: 90%;
+    padding: 1rem;
+}
+
+.feature-card {
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    width: 100%;
+    height: 50%;
+}
+
+.feature-icon img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
