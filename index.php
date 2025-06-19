@@ -49,5 +49,19 @@
         <div>
             <p>&copy; 2025 NewsLens. Giles Macias Alexis | Luciano Hernández Jonathan | Pacheco Morales Ramiro.</p>
         </div>
+    </footer>
+    <script>
+document.querySelector('.formulario').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const texto = document.getElementById('search').value;
+    const respuesta = await fetch('/verificar/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'texto=' + encodeURIComponent(texto)
+    });
+    const data = await respuesta.json();
+    alert('Resultado: ' + data.resultado);
+});
+</script>
 </body>
 </html>

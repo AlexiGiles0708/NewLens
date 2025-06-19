@@ -1,5 +1,5 @@
 import re
-
+import spacy
 
 def normalizar(texto, nlp):
     """
