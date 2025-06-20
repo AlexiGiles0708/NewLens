@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ../api
+      dockerfile: ../docker/flask-api.Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - newslens-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/php-frontend.Dockerfile
+    ports:
+      - "5001:80"
+    networks:
+      - newslens-net
+    depends_on:
+      - api
+    restart: unless-stopped
+
+networks:
+  newslens-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

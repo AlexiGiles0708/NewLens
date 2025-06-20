@@ -120,7 +120,7 @@
             try {
                 M.toast({html: 'Analizando titular...', classes: 'blue', displayLength: 2000});
 
-                const response = await fetch('http://localhost:5000/predict', {
+                const response = await fetch('http://144.126.132.105:5000/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
