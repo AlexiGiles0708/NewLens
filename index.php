@@ -1,62 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./Estilo/estilo.css">
     <title>NewsLens</title>
 </head>
 <body>
-    <section class="container">
-        <header class="header_main">
-            <h1>NewsLens</h1>
-        </header>
-        <form action="" class="formulario">
-            <label for=""></label>
-            <input type="text" name="search" id="search" placeholder="Verificar noticia...">
-        </form>
-    </section>
-    
-    <section class="container_informacion">    
-        <div class="titulo_informacion">
-            <h2>¿Qué es NewsLens?</h2>
+    <!-- Navbar con colores originales -->
+    <nav>
+        <div class="nav-wrapper">
+            <div class="nav-wrapper">
+                <img src="./Recursos/logo.png" alt="Logo NewsLens" class="logo">
+                <span class="brand-text">NEWSLENS</span>
+            </div>
         </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="./Recursos/ia_icono.jpg" alt="Icono de fake news" style="height: 100%;">
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="main-container">
+        <!-- Card del verificador con colores originales -->
+        <div class="card verifier-card">
+            <div class="card-content">
+                <h4 class="center-align" style="color: #2C2C2C;">Verificador de Noticias</h4>
+                <p class="center-align" style="color: #2C2C2C;">Ingresa el titular de la noticia que deseas verificar</p>
+                
+                <div class="search-container">
+                    <input type="text" id="search" placeholder="Pega aquí el titular..." class="search-input">
+                    <button id="verify-btn" class="btn btn-custom waves-effect waves-light">
+                        <i class="material-icons left">search</i> Verificar
+                    </button>
                 </div>
-                <h3>Idea principal del proyecto</h3>
-                <p>NewsLens nace como respuesta a un problema actual: la desinformación digital. Usamos inteligencia artificial para ayudarte a identificar noticias falsas a partir de sus titulares, promoviendo el pensamiento crítico y el acceso a información confiable.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="./Recursos/fake_news.jpg" alt="Icono de inteligencia artificial" style="height: 100%;">
+        </div>
+
+        <!-- Sección informativa -->
+        <div class="info-section">
+            <h4 class="center-align" style="color: #2C2C2C;">¿Cómo funciona NewsLens?</h4>
+            
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <img src="./Recursos/ia_icono.jpg" alt="Tecnología IA">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title" style="color: #2C2C2C;">Tecnología Avanzada</span>
+                            <p style="color: #333333;">Nuestro sistema utiliza inteligencia artificial para detectar patrones de desinformación.</p>
+                        </div>
+                    </div>
                 </div>
-                <h3>¿Por qué nace NewsLens?</h3>
-                <p>NewsLens nace como una respuesta a la creciente propagación de noticias falsas en internet. Observamos cómo muchos usuarios comparten titulares sin verificar su veracidad, lo que contribuye a la desinformación. Por eso, desarrollamos una herramienta basada en inteligencia artificial que analiza los encabezados y alerta sobre posibles noticias falsas.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <img src="./Recursos/icono.png" alt="Icono de análisis de titulares" style="height: 100%;">
+                
+                <div class="col s12 m4">
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <img src="./Recursos/fake_news.jpg" alt="Detección de fake news">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title" style="color: #2C2C2C;">Análisis Completo</span>
+                            <p style="color: #333333;">Examinamos múltiples características lingüísticas de los titulares.</p>
+                        </div>
+                    </div>
                 </div>
-                <h3>Conclusión</h3>
-                <p>NewsLens demuestra cómo la inteligencia artificial puede ser una aliada clave en la lucha contra la desinformación. A través del análisis automatizado de titulares, ofrecemos una herramienta accesible y útil para detectar posibles noticias falsas, fomentando el pensamiento crítico y el consumo responsable de información. Este proyecto no solo responde a una necesidad actual, sino que sienta las bases para seguir desarrollando soluciones tecnológicas que impulsen una sociedad mejor informada.</p>
+                
+                <div class="col s12 m4">
+                    <div class="card feature-card">
+                        <div class="feature-icon">
+                            <img src="./Recursos/icono.png" alt="Resultados confiables">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title" style="color: #2C2C2C;">Resultados Confiables</span>
+                            <p style="color: #333333;">Te ayudamos a identificar posibles noticias falsas.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>        
-    </section>
-    <footer class="footer">
-        <div>
-            <p>&copy; 2025 NewsLens. Giles Macias Alexis | Luciano Hernández Jonathan | Pacheco Morales Ramiro.</p>
+        </div>
+    </div>
+
+    <!-- Modal de resultados -->
+    <div id="result-modal" class="modal">
+        <div class="modal-content">
+            <h4 class="modal-title">Resultado del Análisis</h4>
+            <div id="result-content">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
+        </div>
+    </div>
+
+    <!-- Footer con colores originales -->
+    <footer class="page-footer">
+        <div class="container">
+            <p>&copy; 2025 NewsLens. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-        document.querySelector('.formulario').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const texto = document.getElementById('search').value;
+        $(document).ready(function(){
+            $('.modal').modal();
+        });
+
+        document.getElementById('verify-btn').addEventListener('click', async function() {
+            const texto = document.getElementById('search').value.trim();
             
+            if (!texto) {
+                M.toast({html: 'Por favor ingresa un titular', classes: 'red'});
+                return;
+            }
+
             try {
-                const respuesta = await fetch('http://localhost:5000/predict', {
+                M.toast({html: 'Analizando titular...', classes: 'blue', displayLength: 2000});
+
+                const response = await fetch('http://localhost:5000/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -65,28 +129,40 @@
                     body: JSON.stringify({ texto: texto })
                 });
                 
-                if (!respuesta.ok) {
-                    throw new Error('Error en la respuesta del servidor');
+                if (!response.ok) throw new Error('Error en el servidor');
+                
+                const data = await response.json();
+                const modal = document.getElementById('result-modal');
+                const resultContent = document.getElementById('result-content');
+                
+                if (data.resultado) {
+                    resultContent.innerHTML = `
+                        <p class="fake-result">
+                            <i class="material-icons modal-icon">warning</i>
+                            ¡FAKE NEWS DETECTADO!
+                        </p>
+                        <p>Este titular muestra características de noticias falsas.</p>
+                    `;
+                } else {
+                    resultContent.innerHTML = `
+                        <p class="real-result">
+                            <i class="material-icons modal-icon">check_circle</i>
+                            NOTICIA VERIFICADA
+                        </p>
+                        <p>El análisis no detectó señales de fake news.</p>
+                    `;
                 }
                 
-                const data = await respuesta.json();
-                
-                // Mejora la visualización del resultado
-                const resultadoDiv = document.createElement('div');
-                resultadoDiv.className = 'resultado';
-                resultadoDiv.innerHTML = `
-                    <h3>Resultado del análisis:</h3>
-                    <p><strong>Texto analizado:</strong> ${data.texto_original}</p>
-                    <p><strong>Es noticia falsa:</strong> ${data.resultado ? 'Sí' : 'No'}</p>
-                `;
-                
-                // Inserta el resultado después del formulario
-                document.querySelector('.formulario').after(resultadoDiv);
+                M.Modal.getInstance(modal).open();
                 
             } catch (error) {
-                console.error('Error:', error);
-                alert('Ocurrió un error al procesar tu solicitud: ' + error.message);
+                console.error(error);
+                M.toast({html: 'Error al conectar con el servidor', classes: 'red'});
             }
+        });
+
+        document.getElementById('search').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') document.getElementById('verify-btn').click();
         });
     </script>
 </body>
