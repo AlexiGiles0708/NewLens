@@ -9,7 +9,14 @@ from flask_cors import CORS
 from spacy.lang.es.stop_words import STOP_WORDS
 
 app = Flask(__name__)
-CORS(app)
+# Configuración más completa de CORS
+CORS(app, resources={
+    r"/predict": {
+        "origins": ["*"],
+        "methods": ["POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024  # Limitar a 1MB
 
 # --------------------------
@@ -143,15 +150,26 @@ def favicon():
     """Evita errores de favicon"""
     return '', 404
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
     """Endpoint principal para predicciones"""
+    # Manejo de solicitud preflight CORS
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
+    
+    # Verificar que la solicitud sea JSON
     if not request.is_json:
         abort(400, description="Request must be JSON")
     
+    # Obtener datos del JSON
     data = request.get_json()
     texto = data.get('texto', '')
     
+    # Validar el campo de texto
     if not texto or not isinstance(texto, str):
         abort(400, description="El campo 'texto' es requerido y debe ser una cadena")
     
@@ -185,17 +203,31 @@ def predict():
         pred = model.predict(input_data)[0]
         proba = model.predict_proba(input_data)[0][1]  # Probabilidad de ser fake
         
-        return jsonify({
+        # Construir respuesta con headers CORS
+        response = jsonify({
             'resultado': bool(pred),
             'probabilidad': float(proba),
             'texto_original': texto,
             'texto_normalizado': texto_norm,
             'features': features  # Opcional: para debugging
-        }), 200
+        })
+        
+        # Añadir headers CORS
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        
+        return response, 200
         
     except Exception as e:
         app.logger.error(f"Prediction error: {str(e)}")
-        abort(500, description=f"Error procesando la solicitud: {str(e)}")
+        # Manejar errores con headers CORS
+        error_response = jsonify({
+            'error': str(e),
+            'message': 'Error procesando la solicitud'
+        })
+        error_response.headers.add('Access-Control-Allow-Origin', '*')
+        return error_response, 500
 
 # --------------------------
 # Inicialización

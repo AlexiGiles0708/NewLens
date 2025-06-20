@@ -122,6 +122,7 @@
 
                 const response = await fetch('http://144.126.132.105:5000/predict', {
                     method: 'POST',
+                    mode: 'cors',  // Añadir esto explícitamente
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
@@ -129,7 +130,10 @@
                     body: JSON.stringify({ texto: texto })
                 });
                 
-                if (!response.ok) throw new Error('Error en el servidor');
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Error en el servidor');
+                }
                 
                 const data = await response.json();
                 const modal = document.getElementById('result-modal');
@@ -142,6 +146,7 @@
                             ¡FAKE NEWS DETECTADO!
                         </p>
                         <p>Este titular muestra características de noticias falsas.</p>
+                        <p>Probabilidad: ${(data.probabilidad * 100).toFixed(2)}%</p>
                     `;
                 } else {
                     resultContent.innerHTML = `
@@ -150,19 +155,16 @@
                             NOTICIA VERIFICADA
                         </p>
                         <p>El análisis no detectó señales de fake news.</p>
+                        <p>Probabilidad de ser fake: ${(data.probabilidad * 100).toFixed(2)}%</p>
                     `;
                 }
                 
                 M.Modal.getInstance(modal).open();
                 
             } catch (error) {
-                console.error(error);
-                M.toast({html: 'Error al conectar con el servidor', classes: 'red'});
+                console.error('Error:', error);
+                M.toast({html: `Error: ${error.message}`, classes: 'red'});
             }
-        });
-
-        document.getElementById('search').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') document.getElementById('verify-btn').click();
         });
     </script>
 </body>
