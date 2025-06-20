@@ -3,29 +3,20 @@ version: '3.8'
 services:
   api:
     build:
-      context: ../api
-      dockerfile: ../docker/flask-api.Dockerfile
+      context: ..  # Apunta al directorio raíz NewLens/
+      dockerfile: docker/flask-api.Dockerfile
     ports:
       - "5000:5000"
-    networks:
-      - newslens-net
-    restart: unless-stopped
+    volumes:
+      - ../api/fakenews/modelos:/app/fakenews/modelos  # Mapea la carpeta de modelos
+    restart: always
 
   frontend:
     build:
-      context: ../frontend
-      dockerfile: ../docker/php-frontend.Dockerfile
+      context: ..  # Apunta al directorio raíz NewLens/
+      dockerfile: docker/php-frontend.Dockerfile
     ports:
       - "5001:80"
-    networks:
-      - newslens-net
     depends_on:
       - api
-    restart: unless-stopped
-
-networks:
-  newslens-net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+    restart: always
