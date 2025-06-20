@@ -51,17 +51,43 @@
         </div>
     </footer>
     <script>
-document.querySelector('.formulario').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const texto = document.getElementById('search').value;
-    const respuesta = await fetch('/verificar/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: 'texto=' + encodeURIComponent(texto)
-    });
-    const data = await respuesta.json();
-    alert('Resultado: ' + data.resultado);
-});
-</script>
+        document.querySelector('.formulario').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const texto = document.getElementById('search').value;
+            
+            try {
+                const respuesta = await fetch('http://localhost:5000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ texto: texto })
+                });
+                
+                if (!respuesta.ok) {
+                    throw new Error('Error en la respuesta del servidor');
+                }
+                
+                const data = await respuesta.json();
+                
+                // Mejora la visualización del resultado
+                const resultadoDiv = document.createElement('div');
+                resultadoDiv.className = 'resultado';
+                resultadoDiv.innerHTML = `
+                    <h3>Resultado del análisis:</h3>
+                    <p><strong>Texto analizado:</strong> ${data.texto_original}</p>
+                    <p><strong>Es noticia falsa:</strong> ${data.resultado ? 'Sí' : 'No'}</p>
+                `;
+                
+                // Inserta el resultado después del formulario
+                document.querySelector('.formulario').after(resultadoDiv);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ocurrió un error al procesar tu solicitud: ' + error.message);
+            }
+        });
+    </script>
 </body>
 </html>
