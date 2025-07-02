@@ -22,7 +22,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 from normalizacion.normalizacion import normalizar
 
 # Configuración
-CORPUS_PATH = os.path.join('dataset', 'Dataset_fakenews.csv')
+CORPUS_PATH = os.path.join('fakenews','dataset', 'Dataset_fakenews.csv')
 OUTPUT_FOLDER = 'dataset/Dataset_normalizado'
 MODEL_PATH = os.path.join('modelos', 'optimized_model.pkl')
 
@@ -33,6 +33,7 @@ def tokenize_text(text):
 def cargar_datos():
     """Carga el corpus original con verificación de calidad"""
     if not os.path.exists(CORPUS_PATH):
+        print(os.getcwd())
         raise FileNotFoundError(f"No se encontró el archivo en {CORPUS_PATH}")
     
     datos = pd.read_csv(CORPUS_PATH, encoding='utf-8')
