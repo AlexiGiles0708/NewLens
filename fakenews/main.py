@@ -23,8 +23,8 @@ from normalizacion.normalizacion import normalizar
 
 # Configuración
 CORPUS_PATH = os.path.join('fakenews','dataset', 'Dataset_fakenews.csv')
-OUTPUT_FOLDER = 'dataset/Dataset_normalizado'
-MODEL_PATH = os.path.join('modelos', 'optimized_model.pkl')
+OUTPUT_FOLDER = 'fakenews/dataset/Dataset_normalizado'
+MODEL_PATH = os.path.join('fakenews','modelos', 'optimized_model.pkl')
 
 # Definir función de tokenización fuera de crear_pipeline para poder serializarla
 def tokenize_text(text):
